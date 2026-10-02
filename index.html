@@ -3,123 +3,382 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privacy Policy &mdash; The Mystical Door</title>
+<title>The Mystical Door &mdash; a story RPG for Android</title>
+<meta name="description" content="Step through a glowing door into a library of enchanted books. A story-driven RPG for Android with tactical combat and mysteries you can solve. Free to start.">
+<link rel="canonical" href="https://mysticaldoor.com/">
+<meta name="theme-color" content="#0e0b16">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Mystical Door">
+<meta property="og:url" content="https://mysticaldoor.com/">
+<meta property="og:title" content="The Mystical Door">
+<meta property="og:description" content="Step through a glowing door into a library of enchanted books. A story-driven RPG for Android. Free to start.">
+<meta property="og:image" content="https://mysticaldoor.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An ancient oak in a moonlit clearing, with a glowing purple door in its trunk.">
+<meta name="twitter:card" content="summary_large_image">
 <style>
-  :root { color-scheme: light dark; }
+  :root {
+    color-scheme: dark;
+    --bg: #0e0b16;
+    --panel: #18131f;
+    --panel-2: #221a2c;
+    --line: rgba(255, 255, 255, 0.08);
+    --text: #ece6f3;
+    --muted: #b5abc4;
+    --gold: #e6bd6a;
+    --violet: #c27bff;
+    --violet-deep: #7a3fc4;
+    --serif: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.65;
-    max-width: 44rem;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+  }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: var(--gold); }
+  a:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; border-radius: 2px; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.2; }
+  h2 { font-size: clamp(1.7rem, 3.6vw, 2.4rem); color: var(--gold); margin: 0 0 0.75rem; }
+  h3 { font-size: 1.3rem; margin: 0 0 0.4rem; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    display: grid;
+    place-items: center;
+    min-height: min(92vh, 860px);
+    padding: 2.5rem 1.25rem 4rem;
+    text-align: center;
+    background:
+      radial-gradient(ellipse at 50% 42%, rgba(14, 11, 22, 0.2) 0%, rgba(14, 11, 22, 0.78) 62%, var(--bg) 100%),
+      linear-gradient(to bottom, rgba(14, 11, 22, 0.3), rgba(14, 11, 22, 0.1) 40%, var(--bg)),
+      url("assets/forest.jpg") center / cover no-repeat;
+  }
+  .hero-inner { max-width: 46rem; }
+  .door-wrap {
+    position: relative;
+    width: min(64vw, 400px);
     margin: 0 auto;
-    padding: 2rem 1.25rem 4rem;
-    color: #1c1c1e;
-    background: #ffffff;
+    isolation: isolate;
   }
-  h1 { font-size: 1.85rem; margin-bottom: 0.25rem; }
-  h2 { font-size: 1.15rem; margin-top: 2.25rem; border-bottom: 1px solid #e3e3e6; padding-bottom: 0.3rem; }
-  .meta { color: #6b6b70; font-size: 0.9rem; margin-top: 0; }
-  .summary {
-    background: #f4f6f8;
-    border-left: 4px solid #4a6fa5;
-    padding: 1rem 1.15rem;
-    margin: 1.75rem 0;
-    border-radius: 0 4px 4px 0;
+  /* The sprite's canopy is cropped flat at the top of its canvas; fade that edge into the sky. */
+  .door-wrap img {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 16%);
   }
-  .summary p { margin: 0; }
-  ul { padding-left: 1.3rem; }
-  li { margin-bottom: 0.4rem; }
-  code {
-    background: #f4f6f8;
-    padding: 0.1rem 0.35rem;
-    border-radius: 3px;
-    font-size: 0.9em;
+  /* Light spilling from the door: behind the tree, then over the doorway itself. */
+  .door-wrap::before,
+  .door-wrap::after {
+    content: "";
+    position: absolute;
+    left: 54%;
+    top: 68%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
   }
-  a { color: #2b5797; }
-  footer { margin-top: 3rem; font-size: 0.875rem; color: #6b6b70; }
-  @media (prefers-color-scheme: dark) {
-    body { color: #e8e8ea; background: #141416; }
-    h2 { border-bottom-color: #2e2e33; }
-    .summary { background: #1e1e22; border-left-color: #6d8fc4; }
-    code { background: #1e1e22; }
-    a { color: #7aa7e6; }
-    .meta, footer { color: #9a9aa0; }
+  .door-wrap::before {
+    z-index: -1;
+    width: 95%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba(194, 123, 255, 0.5), rgba(194, 123, 255, 0) 65%);
   }
+  .door-wrap::after {
+    width: 34%;
+    aspect-ratio: 0.7;
+    background: radial-gradient(ellipse, rgba(225, 170, 255, 0.85), rgba(194, 123, 255, 0) 70%);
+    mix-blend-mode: screen;
+    opacity: 0.6;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 7vw, 4.2rem);
+    margin: 0.4rem 0 0;
+    letter-spacing: 0.02em;
+    color: #f7f0e1;
+    text-shadow: 0 0 28px rgba(194, 123, 255, 0.5);
+  }
+  .tagline {
+    max-width: 38rem;
+    margin: 1rem auto 1.75rem;
+    font-size: clamp(1.05rem, 2.3vw, 1.25rem);
+    color: #ddd3ea;
+  }
+  .soon {
+    display: inline-block;
+    margin: 0;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid rgba(230, 189, 106, 0.6);
+    border-radius: 999px;
+    background: rgba(24, 19, 31, 0.85);
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .hero-note { margin: 0.9rem 0 0; color: var(--muted); font-size: 0.95rem; }
+  .hero-note a { color: var(--muted); }
+
+  /* ---------- sections ---------- */
+  section { max-width: 70rem; margin: 0 auto; padding: 4.5rem 1.25rem; }
+  .section-head { text-align: center; margin-bottom: 2.25rem; }
+  .lead { max-width: 42rem; margin: 0 auto; font-size: 1.1rem; color: var(--muted); }
+  .grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  }
+  .tag {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+    padding: 0.15rem 0.7rem;
+    border-radius: 999px;
+    background: var(--gold);
+    color: #1d1405;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- books ---------- */
+  .pip { width: 96px; margin: 0 auto 0.5rem; filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.6)); }
+  .shelf {
+    margin: 0 0 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  }
+  .shelf img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 62%; }
+  .book {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 15rem;
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-top-width: 3px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--panel) center / cover no-repeat;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
+  .book::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to top, rgba(14, 11, 22, 0.96) 25%, rgba(14, 11, 22, 0.55) 70%, rgba(14, 11, 22, 0.2));
+  }
+  .book p { margin: 0; color: #e3dbe9; }
+  .book-oath { background-image: url("assets/book-oath.jpg"); border-top-color: #5fae6a; }
+  .book-fog { background-image: url("assets/book-fog.jpg"); border-top-color: #4f8fd6; }
+  .book-embers { background-image: url("assets/book-embers.jpg"); border-top-color: #d0623f; }
+
+  /* ---------- heroes ---------- */
+  .class-card {
+    position: relative;
+    padding: 1.75rem 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    text-align: center;
+  }
+  .class-card img { width: 128px; margin: 0 auto 0.75rem; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6)); }
+  .class-card p { margin: 0; color: var(--muted); }
+
+  /* ---------- features ---------- */
+  .features ul { list-style: none; margin: 0; padding: 0; }
+  .features li {
+    padding: 1.4rem 1.5rem;
+    border-left: 3px solid var(--violet-deep);
+    border-radius: 12px;
+    background: var(--panel);
+  }
+  .features h3 { font-size: 1.15rem; color: #f1e9fb; }
+  .features p { margin: 0; color: var(--muted); }
+
+  /* ---------- price ---------- */
+  .price-panel {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 2.75rem 1.5rem;
+    border: 1px solid rgba(230, 189, 106, 0.25);
+    border-radius: 16px;
+    background: radial-gradient(ellipse at top, rgba(122, 63, 196, 0.35), transparent 70%), var(--panel);
+    text-align: center;
+  }
+  .checks { max-width: 34rem; margin: 1.5rem auto 2rem; padding: 0; list-style: none; text-align: left; }
+  .checks li { position: relative; margin-bottom: 0.8rem; padding-left: 2rem; }
+  .checks li::before { content: "\2726"; position: absolute; left: 0.2rem; color: var(--gold); }
+
+  /* ---------- footer ---------- */
+  footer {
+    padding: 2.5rem 1.25rem 3rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.92rem;
+    text-align: center;
+  }
+  footer nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.75rem; margin-bottom: 0.75rem; }
+  footer p { margin: 0.25rem 0; }
+  .legal { font-size: 0.8rem; opacity: 0.85; }
+
+  @media (max-width: 40rem) {
+    .shelf img { aspect-ratio: 16 / 10; }
+    section { padding: 3.5rem 1.1rem; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+    .door-wrap::after { animation: door-glow 3.5s ease-in-out infinite alternate; }
+    .pip { animation: hover 3s ease-in-out infinite alternate; }
+  }
+  @keyframes door-glow { from { opacity: 0.35; } to { opacity: 0.9; } }
+  @keyframes hover { from { transform: translateY(0); } to { transform: translateY(-6px); } }
 </style>
 </head>
 <body>
 
-<h1>Privacy Policy</h1>
-<p class="meta">The Mystical Door &nbsp;&middot;&nbsp; <code>com.halknight.mysticaldoor</code><br>
-Effective 25 September 2026</p>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="door-wrap">
+      <img src="assets/door-tree.webp" width="512" height="512" alt="An ancient oak with a glowing purple door set into its trunk.">
+    </div>
+    <h1>The Mystical Door</h1>
+    <p class="tagline">Step through a glowing door in an ancient oak. On the other side wait a candlelit
+    library, a friendly bat named Pip, and a shelf of enchanted books &mdash; each one a
+    twelve-chapter adventure in a world of its own.</p>
+    <p class="soon">Coming soon to Google Play</p>
+    <p class="hero-note">Free to start &middot; Android &middot; <a href="#books">See the books &darr;</a></p>
+  </div>
+</header>
 
-<div class="summary">
-  <p><strong>In short: The Mystical Door does not collect any personal information.</strong>
-  There are no accounts, no advertising, no analytics, and no third-party trackers.
-  Your saved games stay on your device and are never sent anywhere.</p>
-</div>
+<main>
 
-<h2>1. Information We Collect</h2>
-<p><strong>None.</strong> The Mystical Door does not collect, transmit, sell, or share any
-personal or sensitive user data. The game has no sign-in, no user accounts, and no server
-of its own. We have no way to identify you and no record that you have installed the game.</p>
+<section id="books" aria-labelledby="books-h">
+  <div class="section-head">
+    <img class="pip" src="assets/pip.webp" width="200" height="300" alt="Pip, a small brown bat wearing round spectacles." loading="lazy">
+    <h2 id="books-h">Pick a book from the shelf</h2>
+    <p class="lead">Pip greets you in the library and leads you to a shelf of three enchanted books.
+    Each is a story of twelve chapters set in an open world of its own, and each one holds a
+    mystery for you to unravel.</p>
+  </div>
+  <figure class="shelf">
+    <img src="assets/bookcase.jpg" width="1536" height="1024" loading="lazy"
+         alt="A carved wooden bookcase between two lit candles, with three glowing books on its middle shelf: green, blue and red.">
+  </figure>
+  <div class="grid">
+    <article class="book book-oath">
+      <span class="tag">Free</span>
+      <h3>The Cartographer&rsquo;s Oath</h3>
+      <p>A hunt for lost treasure in a realm of ancient forests and forgotten kings.</p>
+    </article>
+    <article class="book book-fog">
+      <h3>A Study in Fog</h3>
+      <p>A foggy London mystery demanding sharp eyes and sharper deduction.</p>
+    </article>
+    <article class="book book-embers">
+      <h3>The Vault of Embers</h3>
+      <p>A castle vault, a hoard of gold, and a dragon who won&rsquo;t share it.</p>
+    </article>
+  </div>
+</section>
 
-<h2>2. Data Stored On Your Device</h2>
-<p>The game saves the following locally, in private application storage that only
-The Mystical Door can read:</p>
-<ul>
-  <li>Your saved games &mdash; character, inventory, progress, and story choices.</li>
-  <li>Game settings and preferences.</li>
-  <li>A flag recording whether the full game has been unlocked by purchase.</li>
-</ul>
-<p>This information never leaves your device. It is not backed up to our servers, because we
-do not operate any. Uninstalling the game permanently deletes all of it.</p>
+<section id="heroes" aria-labelledby="heroes-h">
+  <div class="section-head">
+    <h2 id="heroes-h">Choose your hero</h2>
+    <p class="lead">Three classes, each with a male or female hero, a choice of two starting kits,
+    and four abilities that grow through four ranks.</p>
+  </div>
+  <div class="grid">
+    <article class="class-card">
+      <img src="assets/class-warrior.webp" width="256" height="256" alt="" loading="lazy">
+      <h3>Warrior</h3>
+      <p>A stalwart front-liner who trades blows at close range and shrugs off damage.</p>
+    </article>
+    <article class="class-card">
+      <img src="assets/class-mage.webp" width="256" height="256" alt="" loading="lazy">
+      <h3>Mage</h3>
+      <p>A ranged spellcaster who deals heavy burst damage from a distance.</p>
+    </article>
+    <article class="class-card">
+      <span class="tag">Free</span>
+      <img src="assets/class-ranger.webp" width="256" height="256" alt="" loading="lazy">
+      <h3>Ranger</h3>
+      <p>A nimble marksman balancing steady ranged damage with mobility.</p>
+    </article>
+  </div>
+</section>
 
-<h2>3. Purchases</h2>
-<p>The Mystical Door is free to play, and offers a single optional one-time purchase that
-unlocks the full game.</p>
-<p>All purchases are processed entirely by <strong>Google Play</strong>. Payment is handled
-within Google's own systems. We never receive, see, or store your name, billing address,
-card number, or any other payment details. The game only asks Google Play a single question
-&mdash; whether this device owns the unlock &mdash; and receives a yes or no.</p>
-<p>Google's handling of your payment information is governed by the
-<a href="https://policies.google.com/privacy" rel="noopener">Google Privacy Policy</a>.</p>
+<section id="features" class="features" aria-labelledby="features-h">
+  <div class="section-head">
+    <h2 id="features-h">Inside every book</h2>
+  </div>
+  <ul class="grid">
+    <li>
+      <h3>Tactical combat</h3>
+      <p>Turn-based battles on an isometric grid, with terrain, cooldowns, critical hits,
+      knockbacks and status effects to play around.</p>
+    </li>
+    <li>
+      <h3>Mysteries you can solve</h3>
+      <p>The evidence is placed in the world, not handed to you, and deduction boards ask you
+      to make sense of what you have found.</p>
+    </li>
+    <li>
+      <h3>A story told aloud</h3>
+      <p>Every chapter is narrated, and every character speaks their lines in conversation.</p>
+    </li>
+    <li>
+      <h3>Worlds to explore</h3>
+      <p>More than a hundred hand-built places, with rain, snow, fog, embers and fireflies, and
+      a map that fills in as you go.</p>
+    </li>
+    <li>
+      <h3>Gear and growth</h3>
+      <p>Six tiers of weapons, armour and trinkets, levels that make you stronger, and
+      abilities to rank up.</p>
+    </li>
+    <li>
+      <h3>Your pace</h3>
+      <p>Three difficulty levels change how hard foes hit, never what you earn. Switch any
+      time.</p>
+    </li>
+  </ul>
+</section>
 
-<h2>4. No Advertising, Analytics, or Tracking</h2>
-<p>The game contains <strong>no advertisements</strong>, <strong>no analytics or crash-reporting
-services</strong>, and <strong>no third-party tracking software</strong> of any kind. Nothing you
-do inside the game is measured, profiled, or reported.</p>
-<p>The only external service the app communicates with is Google Play, and only to verify
-purchases as described above.</p>
+<section id="price" aria-labelledby="price-h">
+  <div class="price-panel">
+    <h2 id="price-h">Free to start. One price for the rest.</h2>
+    <ul class="checks">
+      <li>Play <strong>The Cartographer&rsquo;s Oath</strong> as the <strong>Ranger</strong> for
+      free, along with the Training Grounds.</li>
+      <li>A single one-time purchase unlocks everything else.</li>
+      <li>No ads, no subscriptions and no account.</li>
+      <li>No internet connection needed to play.</li>
+    </ul>
+    <p class="soon">Coming soon to Google Play</p>
+  </div>
+</section>
 
-<h2>5. Permissions</h2>
-<p>The Mystical Door requests <strong>no sensitive device permissions</strong>. It cannot access
-your location, camera, microphone, contacts, photos, files, or call history.</p>
-<p>The app declares network and billing permissions, which are required by the Google Play
-Billing library in order to verify purchases. They are not used for any other purpose.</p>
-
-<h2>6. Children's Privacy</h2>
-<p>The Mystical Door is not directed at children under 13, and we do not knowingly collect
-information from anyone, of any age. Because the game collects no data at all, there is no
-child data for us to hold, disclose, or delete.</p>
-
-<h2>7. Your Data Rights</h2>
-<p>Privacy laws such as the GDPR and CCPA give you rights to access, correct, or delete
-personal data a company holds about you. We hold none, so there is nothing for us to return
-or erase. To remove the data stored locally on your device, simply uninstall the game.</p>
-<p>Records relating to your purchase are held by Google Play, and can be managed through your
-Google account.</p>
-
-<h2>8. Changes To This Policy</h2>
-<p>If this policy changes, the revised version will be posted at this address with an updated
-effective date. Material changes will also be noted in the app's release notes on Google Play.</p>
-
-<h2>9. Contact</h2>
-<p>Questions about this policy or about privacy in The Mystical Door:</p>
-<p><a href="mailto:mysticaldoorproductions@proton.me">mysticaldoorproductions@proton.me</a></p>
+</main>
 
 <footer>
-  &copy; 2026 The Mystical Door. This policy applies to the Android application
-  <code>com.halknight.mysticaldoor</code> distributed through Google Play.
+  <nav aria-label="Site">
+    <a href="privacy/">Privacy Policy</a>
+    <a href="mailto:mysticaldoorproductions@proton.me">Contact</a>
+  </nav>
+  <p>&copy; 2026 The Mystical Door</p>
+  <p class="legal">Google Play is a trademark of Google LLC.</p>
 </footer>
 
 </body>
