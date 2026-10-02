@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Mystical Door &mdash; a story RPG for Android</title>
-<meta name="description" content="Step through a glowing door into a library of enchanted books. A story-driven RPG for Android with tactical combat and mysteries you can solve. Free to start.">
+<meta name="description" content="Four books. One door. A fully voiced, turn-based story RPG for Android, with tactical combat and mysteries you can solve. Free to start.">
 <link rel="canonical" href="https://mysticaldoor.com/">
 <meta name="theme-color" content="#0e0b16">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
@@ -13,11 +13,11 @@
 <meta property="og:site_name" content="The Mystical Door">
 <meta property="og:url" content="https://mysticaldoor.com/">
 <meta property="og:title" content="The Mystical Door">
-<meta property="og:description" content="Step through a glowing door into a library of enchanted books. A story-driven RPG for Android. Free to start.">
-<meta property="og:image" content="https://mysticaldoor.com/assets/og-image.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="An ancient oak in a moonlit clearing, with a glowing purple door in its trunk.">
+<meta property="og:description" content="Four books. One door. A fully voiced, turn-based story RPG for Android. Free to start.">
+<meta property="og:image" content="https://mysticaldoor.com/assets/feature-graphic.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta property="og:image:alt" content="The Mystical Door: Four books. One door. A fully voiced turn-based story RPG. A glowing doorway in the trunk of an ancient tree.">
 <meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
@@ -104,6 +104,23 @@
     color: #f7f0e1;
     text-shadow: 0 0 28px rgba(194, 123, 255, 0.5);
   }
+  /* Same line, rule and gold italic as the Play feature graphic. */
+  .motto {
+    margin: 0.6rem 0 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.25rem, 2.8vw, 1.6rem);
+    color: var(--gold);
+  }
+  .motto::before {
+    content: "";
+    display: block;
+    width: 7rem;
+    height: 2px;
+    margin: 0 auto 0.8rem;
+    background: var(--gold);
+    opacity: 0.8;
+  }
   .tagline {
     max-width: 38rem;
     margin: 1rem auto 1.75rem;
@@ -183,6 +200,37 @@
   .book-oath { background-image: url("assets/book-oath.jpg"); border-top-color: #5fae6a; }
   .book-fog { background-image: url("assets/book-fog.jpg"); border-top-color: #4f8fd6; }
   .book-embers { background-image: url("assets/book-embers.jpg"); border-top-color: #d0623f; }
+  .book-fourth {
+    grid-column: 1 / -1;
+    min-height: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    border-top-color: var(--violet);
+    background: radial-gradient(ellipse at 50% 130%, rgba(194, 123, 255, 0.4), transparent 70%), var(--panel);
+    text-align: center;
+  }
+  .book-fourth::before { display: none; }
+  .book-fourth h3 { color: #f1e9fb; font-style: italic; }
+  .book-fourth p { max-width: 34rem; color: var(--muted); }
+
+  /* ---------- gallery ---------- */
+  .gallery {
+    display: grid;
+    gap: 1.5rem 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+  }
+  .gallery figure { margin: 0; }
+  .gallery a {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
+  .gallery a:hover { border-color: rgba(230, 189, 106, 0.55); }
+  .gallery img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .gallery figcaption { margin-top: 0.6rem; color: var(--muted); font-size: 0.95rem; text-align: center; }
 
   /* ---------- heroes ---------- */
   .class-card {
@@ -254,9 +302,10 @@
       <img src="assets/door-tree.webp" width="512" height="512" alt="An ancient oak with a glowing purple door set into its trunk.">
     </div>
     <h1>The Mystical Door</h1>
-    <p class="tagline">Step through a glowing door in an ancient oak. On the other side wait a candlelit
-    library, a friendly bat named Pip, and a shelf of enchanted books &mdash; each one a
-    twelve-chapter adventure in a world of its own.</p>
+    <p class="motto">Four books. One door.</p>
+    <p class="tagline">A fully voiced, turn-based story RPG. Step through a glowing door in an
+    ancient oak to find a candlelit library, a friendly bat named Pip, and a shelf of enchanted
+    books &mdash; each one a twelve-chapter adventure in a world of its own.</p>
     <p class="soon">Coming soon to Google Play</p>
     <p class="hero-note">Free to start &middot; Android &middot; <a href="#books">See the books &darr;</a></p>
   </div>
@@ -290,6 +339,11 @@
       <h3>The Vault of Embers</h3>
       <p>A castle vault, a hoard of gold, and a dragon who won&rsquo;t share it.</p>
     </article>
+    <article class="book book-fourth">
+      <h3>And a fourth&hellip;</h3>
+      <p>Finish all three with the same hero, and another book appears on the shelf &mdash; one
+      that was not there before.</p>
+    </article>
   </div>
 </section>
 
@@ -319,6 +373,64 @@
   </div>
 </section>
 
+<section id="screens" aria-labelledby="screens-h">
+  <div class="section-head">
+    <h2 id="screens-h">The first few minutes</h2>
+    <p class="lead">From the opening of the game, all of it in the part you can play for free.
+    Tap a picture to see it full size.</p>
+  </div>
+  <div class="gallery">
+    <figure>
+      <a href="assets/screens/door-1600.webp"><img src="assets/screens/door-800.webp"
+        srcset="assets/screens/door-800.webp 800w, assets/screens/door-1600.webp 1600w"
+        sizes="(min-width: 70rem) 34rem, (min-width: 56rem) 50vw, 100vw"
+        width="1600" height="900" loading="lazy"
+        alt="The Ranger before an ancient oak with a glowing purple door. Narration: An old tree looms ahead, its bark split by a glow of violet light, a door that should not exist."></a>
+      <figcaption>A door that should not exist</figcaption>
+    </figure>
+    <figure>
+      <a href="assets/screens/pip-1600.webp"><img src="assets/screens/pip-800.webp"
+        srcset="assets/screens/pip-800.webp 800w, assets/screens/pip-1600.webp 1600w"
+        sizes="(min-width: 70rem) 34rem, (min-width: 56rem) 50vw, 100vw"
+        width="1600" height="900" loading="lazy"
+        alt="Pip the bat speaks in the candlelit library: Oh! A visitor, through the door, no less. I'm Pip. Come, come, I know just the shelf for someone like you."></a>
+      <figcaption>Pip knows just the shelf for you</figcaption>
+    </figure>
+    <figure>
+      <a href="assets/screens/library-1600.webp"><img src="assets/screens/library-800.webp"
+        srcset="assets/screens/library-800.webp 800w, assets/screens/library-1600.webp 1600w"
+        sizes="(min-width: 70rem) 34rem, (min-width: 56rem) 50vw, 100vw"
+        width="1600" height="900" loading="lazy"
+        alt="The Ranger and Pip walk a long red carpet between bookcases, globes and candlelit reading desks."></a>
+      <figcaption>The candlelit library</figcaption>
+    </figure>
+    <figure>
+      <a href="assets/screens/chapter-1600.webp"><img src="assets/screens/chapter-800.webp"
+        srcset="assets/screens/chapter-800.webp 800w, assets/screens/chapter-1600.webp 1600w"
+        sizes="(min-width: 70rem) 34rem, (min-width: 56rem) 50vw, 100vw"
+        width="1600" height="900" loading="lazy"
+        alt="Chapter I title card, The Road to Thornwick: In which a map is inherited. Twenty years ago the cartographer Alder Vance walked north out of Thornwick with his good coat on, and the Weald has been quietly rotting ever since."></a>
+      <figcaption>Every chapter opens with a narrated title card</figcaption>
+    </figure>
+    <figure>
+      <a href="assets/screens/road-1600.webp"><img src="assets/screens/road-800.webp"
+        srcset="assets/screens/road-800.webp 800w, assets/screens/road-1600.webp 1600w"
+        sizes="(min-width: 70rem) 34rem, (min-width: 56rem) 50vw, 100vw"
+        width="1600" height="900" loading="lazy"
+        alt="The Ranger walks a winding dirt road through the woods, past a cart of sacks. The chapter goal reads: Reach Thornwick village and speak with Mira Vance."></a>
+      <figcaption>Out on the Woodland Road</figcaption>
+    </figure>
+    <figure>
+      <a href="assets/screens/combat-1600.webp"><img src="assets/screens/combat-800.webp"
+        srcset="assets/screens/combat-800.webp 800w, assets/screens/combat-1600.webp 1600w"
+        sizes="(min-width: 70rem) 34rem, (min-width: 56rem) 50vw, 100vw"
+        width="1600" height="900" loading="lazy"
+        alt="A turn-based battle on an isometric grid: the Ranger faces a Road Wolf, with the Quick Shot, Power Shot, Pin Down and Focus abilities ready."></a>
+      <figcaption>Turn-based battles on a tactical grid</figcaption>
+    </figure>
+  </div>
+</section>
+
 <section id="features" class="features" aria-labelledby="features-h">
   <div class="section-head">
     <h2 id="features-h">Inside every book</h2>
@@ -335,7 +447,7 @@
       to make sense of what you have found.</p>
     </li>
     <li>
-      <h3>A story told aloud</h3>
+      <h3>Fully voiced</h3>
       <p>Every chapter is narrated, and every character speaks their lines in conversation.</p>
     </li>
     <li>
